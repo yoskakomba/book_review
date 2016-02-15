@@ -1,16 +1,38 @@
-<h2><%= @book.title %></h2>
-<h3><%= @book.author %></h3>
-<h4><%= @book.category_id %></h4>
-<p><%= @book.description %></p>
+<div class="row">
+    <div class="col-md-4">
+        <%= image_tag @book.book_img.url(:book_show), class: "book-show" %>
+    </div>
+    
+    <div class="col-md-8">
+        <h2><%= @book.title %></h2>
+        <h3><%= @book.author %></h3>
+        <p><%= @book.description %></p>
+    </div>
+    
+</div>
 
-<%= link_to "Back", root_path %>
+<div class="row">
+    
+    <div class="col-md-4">
+        <!-- Where the reviews and rating will be placed -->
+        <%= render @book.reviews %>
+        <div>
+            <%= link_to "Add Review", new_book_review_path(@book) %>
+            
+        </div>
+    </div>
+    
+</div>
+
+    <%= link_to "Back", root_path %>
 
 <% if user_signed_in? %>
 
     <% if @book.user_id == current_user.id %>
     
         <%= link_to "Edit", edit_book_path(@book) %>
-        <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }%>
+        <%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" } %>
     
     <% end %>
 <% end %>
+
